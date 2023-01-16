@@ -4,7 +4,7 @@ def callApiAll ():
     # api-endpoint
     URL = "https://services.nvd.nist.gov/rest/json/cves/2.0"
 
-    # location given here
+    # params given here
     keyword = "Fortinet"
     startDate = "2022-12-01T00:00:00.000"
     endDate = "2023-01-11T00:00:00.000"
