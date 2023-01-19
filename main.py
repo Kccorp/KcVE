@@ -9,6 +9,8 @@ def main():
     data = callApiAll()
 
     cveList = []
+    cpeList = []
+
     for i in range(len(data['vulnerabilities'])):
         cve = Cve(data['vulnerabilities'][i]['cve']['id'],
                   data['vulnerabilities'][i]['cve']['published'],
@@ -20,7 +22,20 @@ def main():
                     data['vulnerabilities'][i]['cve']['metrics']['cvssMetricV31'][0]['cvssData']['vectorString'],
                     data['vulnerabilities'][i]['cve']['metrics']['cvssMetricV31'][0]['exploitabilityScore'])
 
+        for j in range(len(data['vulnerabilities'][i]['cve']['configurations'][0]['nodes'][0]['cpeMatch'])):
+            cpe = data['vulnerabilities'][i]['cve']['configurations'][0]['nodes'][0]['cpeMatch'][j][
+                'criteria'].split(":")
+            cpeObject = Cpe(cpe[3], cpe[4], cpe[5])
+            cpeList.append(cpeObject)
+
+        cve.getCpe(cpeList)
         cveList.append(cve)
+
+        cpeList = []
+
+
+
+
 
     for i in range(len(cveList)):
         cveList[i].showAll()

@@ -1,6 +1,7 @@
-# write class cve
-class Cve:
+from cpeClass import Cpe
 
+
+class Cve:
     exploitabilityScore = None
     id = None
     publishedDate = None
@@ -10,27 +11,25 @@ class Cve:
     baseScore = None
     vectorString = None
 
+    cpeList = []
+
     def __init__(self, id, publishedDate, lastModifiedDate, description):
         self.id = id
         self.publishedDate = publishedDate
         self.lastModifiedDate = lastModifiedDate
         self.description = description
 
-
     def getCvss(self, version, baseScore, vectorString, exploitabilityScore):
         self.version = version
         self.baseScore = baseScore
         self.vectorString = vectorString
         self.exploitabilityScore = exploitabilityScore
 
-    def getCvss(self, version, baseScore, vectorString, exploitabilityScore):
-        self.version = version
-        self.baseScore = baseScore
-        self.vectorString = vectorString
-        self.exploitabilityScore = exploitabilityScore
+    def getCpe(self, cpeList):
+        self.cpeList = cpeList
 
     def showAll(self):
-        print("\n")
+        print("\n\n")
         print("id: " + str(self.id))
         print("publishedDate: " + str(self.publishedDate))
         print("lastModifiedDate: " + str(self.lastModifiedDate))
@@ -39,3 +38,7 @@ class Cve:
         print("baseScore: " + str(self.baseScore))
         print("vectorString: " + str(self.vectorString))
         print("exploitabilityScore: " + str(self.exploitabilityScore))
+        print("Vulnerable CPEs: ")
+        for i in range(len(self.cpeList)):
+            self.cpeList[i].showAll()
+
