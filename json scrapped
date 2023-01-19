@@ -8,7 +8,7 @@ data['vulnerabilities'][i]['metrics']['cvssMetricV31'][0]['cvssData']['baseScore
 data['vulnerabilities'][i]['metrics']['cvssMetricV31'][0]['cvssData']['vectorString']
 data['vulnerabilities'][i]['metrics']['cvssMetricV31'][0]['exploitabilityScore']
 
-data['vulnerabilities'][i]['weaknesses'][0]['description']['value']
+data['vulnerabilities'][i]['weaknesses'][0]['description']['value'] --> pas forcement utile car infos déjà présent dans cve
 
 for j in range data['vulnerabilities'][i]['configurations'][0]['nodes'][0]['cpeMatch']:
 	data['vulnerabilities'][i]['configurations'][0]['nodes'][0]['cpeMatch'][j]['criteria']
