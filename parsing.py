@@ -27,6 +27,9 @@ def parseDataToCve(data):
                     data['vulnerabilities'][i]['cve']['metrics']['cvssMetricV31'][0]['cvssData']['vectorString'],
                     data['vulnerabilities'][i]['cve']['metrics']['cvssMetricV31'][0]['exploitabilityScore'])
 
+        cve.getSource(data['vulnerabilities'][i]['cve']['references'][0]['source'],
+                      data['vulnerabilities'][i]['cve']['references'][0]['url'])
+
         cpeList = parseAllCpeIntoList(data, cpeList, i)
 
         cve.getCpe(cpeList)

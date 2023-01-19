@@ -13,6 +13,6 @@ data['vulnerabilities'][i]['weaknesses'][0]['description']['value'] --> pas forc
 for j in range data['vulnerabilities'][i]['configurations'][0]['nodes'][0]['cpeMatch']:
 	data['vulnerabilities'][i]['configurations'][0]['nodes'][0]['cpeMatch'][j]['criteria']
 
-for j in range data['vulnerabilities'][i]['references']:
-	data['vulnerabilities'][i]['references'][j]['url']
-	data['vulnerabilities'][i]['references'][j]['source']
+
+	data['vulnerabilities'][i]['references'][0]['source']
+	data['vulnerabilities'][i]['references'][0]['url']
