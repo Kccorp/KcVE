@@ -9,6 +9,17 @@ def parseAllCpeIntoList(data, cpeList, i):
                 cpe = data['vulnerabilities'][i]['cve']['configurations'][j]['nodes'][k]['cpeMatch'][w][
                     'criteria'].split(":")
                 cpeObject = Cpe(cpe[3], cpe[4], cpe[5])
+
+                if len(data['vulnerabilities'][i]['cve']['configurations'][j]['nodes'][k]['cpeMatch'][w]) > 3:
+                    cpeObject.getMinVersion(
+                        data['vulnerabilities'][i]['cve']['configurations'][j]['nodes'][k]['cpeMatch'][w][
+                            'versionStartIncluding'])
+
+                if len(data['vulnerabilities'][i]['cve']['configurations'][j]['nodes'][k]['cpeMatch'][w]) > 3:
+                    cpeObject.getMaxVersion(
+                        data['vulnerabilities'][i]['cve']['configurations'][j]['nodes'][k]['cpeMatch'][w][
+                            'versionEndIncluding'])
+
                 cpeList.append(cpeObject)
 
     return cpeList
