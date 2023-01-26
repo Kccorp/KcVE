@@ -32,3 +32,24 @@ def checkDateOrder(startDate, endDate):
         return False
 
     return True
+
+
+def identifyWichAPICall(args):
+    if args.keyword is not None:
+        return "keyword"
+    elif args.vendor is not None or args.product is not None:
+        return "vendorProduct"
+    else:
+        return "all"
+
+
+def createVirtualMatchString(vendor, product):
+    if vendor is None and product is None:
+        return None
+
+    if vendor is None:
+        vendor = "*"
+    if product is None:
+        product = "*"
+
+    return "cpe:2.3:o:"+vendor+":"+product+":*:*:*:*:*:*:*"
