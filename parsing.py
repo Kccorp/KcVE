@@ -3,11 +3,13 @@ from cveClass import Cve
 
 
 def parseAllCpeIntoList(data, cpeList, i):
-    for j in range(len(data['vulnerabilities'][i]['cve']['configurations'][0]['nodes'][0]['cpeMatch'])):
-        cpe = data['vulnerabilities'][i]['cve']['configurations'][0]['nodes'][0]['cpeMatch'][j][
-            'criteria'].split(":")
-        cpeObject = Cpe(cpe[3], cpe[4], cpe[5])
-        cpeList.append(cpeObject)
+    for j in range(len(data['vulnerabilities'][i]['cve']['configurations'])):
+        for k in range(len(data['vulnerabilities'][i]['cve']['configurations'][j]['nodes'])):
+            for w in range(len(data['vulnerabilities'][i]['cve']['configurations'][j]['nodes'][k]['cpeMatch'])):
+                cpe = data['vulnerabilities'][i]['cve']['configurations'][j]['nodes'][k]['cpeMatch'][w][
+                    'criteria'].split(":")
+                cpeObject = Cpe(cpe[3], cpe[4], cpe[5])
+                cpeList.append(cpeObject)
 
     return cpeList
 
