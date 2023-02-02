@@ -28,4 +28,9 @@ def checkArgs(args):
         print("\033[91m" + "End date is not in the correct format" + "\033[0m")
         return False
 
+    # if -w is used, verify if end of str is .html
+    if args.output is not None:
+        if args.output[-5:] != ".html":
+            args.output += ".html"
+
     return True
