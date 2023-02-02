@@ -31,7 +31,7 @@ def main():
 
     if args.output is not None:
         # create the report
-        createCveReport(cveList)
+        createCveReport(cveList, args.output)
     else:
         # print the report
         printAllCveObjects(cveList)

@@ -35,9 +35,11 @@ def appendToFile(path, text):
     file.close()  # Close the file
 
 
-def createCveReport(cveList):
-    createFile("report.html")
+def createCveReport(cveList, path):
+    createFile(path)
     for i in range(len(cveList)):
+
+        # show cve id and cvss infos
         cveReport = '<h2>' + str(cveList[i].id) + '  &nbsp; &nbsp; &nbsp; &nbsp; CVSS version' + str(
             cveList[i].version) + '</h2>'
         cveReport += '<p>Published Date: ' + cveList[i].publishedDate + '<br> lastModifiedDate: ' + cveList[
@@ -45,6 +47,8 @@ def createCveReport(cveList):
         cveReport += '<h3>Description</h3><p>' + cveList[i].description + '</p>'
         cveReport += '<h3>CVSS</h3><h4>Base Score: ' + str(cveList[i].baseScore) + '<br>Vector String: ' + cveList[
             i].vectorString + '<br>Exploitability Score: ' + str(cveList[i].exploitabilityScore) + '</p>'
+
+        # show all cpes for a cve object
         cveReport += '<h3>Vulnerable CPEs</h3>'
         for j in range(len(cveList[i].cpeList)):
             cveReport += '<ul class="list-group list-group-horizontal">'
@@ -67,5 +71,4 @@ def createCveReport(cveList):
 
         cveReport += '<hr class="my-4">'
 
-
-        appendToFile("report.html", cveReport)
+        appendToFile(path, cveReport)
