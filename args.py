@@ -17,7 +17,7 @@ def getArgs():
 
 def checkArgs(args):
     if checkDateFormat(args.startDate) is None:
-        print("\033[91m" + "Start date is not in the correct format" + "\033[0m")
+        print("\033[91m" + "Start date is not in the correct format (ex.YYYY/MM/DD)" + "\033[0m")
         return False
 
     if checkDateOrder(args.startDate, args.endDate) is False:
@@ -25,8 +25,30 @@ def checkArgs(args):
         return False
 
     if checkDateFormat(args.endDate) is None:
-        print("\033[91m" + "End date is not in the correct format" + "\033[0m")
+        print("\033[91m" + "End date is not in the correct format (ex.YYYY/MM/DD)" + "\033[0m")
         return False
+
+    if args.keyword is not None and (args.vendor is not None or args.product is not None):
+        print("\033[91m" + "You can't use -k with -v or -p" + "\033[0m")
+        return False
+
+    # check if args.keyword has no symbols
+    if args.keyword is not None:
+        if not args.keyword.isalnum():
+            print("\033[91m" + "Keyword can't contain symbols" + "\033[0m")
+            return False
+
+    # check if args.vendor has no symbols
+    if args.vendor is not None:
+        if not args.vendor.isalnum():
+            print("\033[91m" + "Vendor can't contain symbols" + "\033[0m")
+            return False
+
+    # check if args.product has no symbols
+    if args.product is not None:
+        if not args.product.isalnum():
+            print("\033[91m" + "Product can't contain symbols" + "\033[0m")
+            return False
 
     # if -w is used, verify if end of str is .html
     if args.output is not None:
