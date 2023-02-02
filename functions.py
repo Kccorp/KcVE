@@ -1,4 +1,5 @@
 import re
+import datetime
 
 
 def checkDateFormat(dateFullString):
@@ -13,6 +14,29 @@ def checkDateFormat(dateFullString):
         return None
 
     return dateRegex.search(dateFullString).group()
+
+
+def checkDateRange(startDate, endDate):
+    if startDate is None or endDate is None:
+        return False
+
+    # remove T00:00:00.000 from the date
+    startDate = startDate.split("T")[0]
+    endDate = endDate.split("T")[0]
+
+    # convertir les dates en datetime
+    startDate = datetime.datetime.strptime(startDate, '%Y-%m-%d').date()
+    endDate = datetime.datetime.strptime(endDate, '%Y-%m-%d').date()
+
+    # calculer la différence entre les deux dates
+    diff = endDate - startDate
+
+    # si la différence est supérieure à 90 jours retourner false
+    if diff.days > 90:
+        print("\033[91m" + "The research period is limited to 3 months " + "\033[0m")
+        return False
+
+    return True
 
 
 def refactorDateFormat(dateFullString):
@@ -52,4 +76,4 @@ def createVirtualMatchString(vendor, product):
     if product is None:
         product = "*"
 
-    return "cpe:2.3:o:"+vendor+":"+product+":*:*:*:*:*:*:*"
+    return "cpe:2.3:*:" + vendor + ":" + product + ":*:*:*:*:*:*:*"

@@ -13,6 +13,9 @@ def main():
     startDate = refactorDateFormat(args.startDate)
     endDate = refactorDateFormat(args.endDate)
 
+    if not checkDateRange(startDate, endDate):
+        exit(1)
+
     if identifyWichAPICall(args) == "all":
         # call the api and get the data
         data = callApiAll(startDate, endDate)
