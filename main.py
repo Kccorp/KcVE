@@ -29,14 +29,12 @@ def main():
     # parse the data to a list of cve objects
     cveList = parseDataToCve(data)
 
-    # create the report
-    createCveReport(cveList)
-    #
-    # # print all the cve objects
-    # for i in range(len(cveList)):
-    #     cveList[i].showAll()
-    #
-    # print("\n" + "Total number of CVEs: " + str(len(cveList)))
+    if args.output is not None:
+        # create the report
+        createCveReport(cveList)
+    else:
+        # print the report
+        printAllCveObjects(cveList)
 
 
 if __name__ == '__main__':

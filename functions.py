@@ -77,3 +77,10 @@ def createVirtualMatchString(vendor, product):
         product = "*"
 
     return "cpe:2.3:*:" + vendor + ":" + product + ":*:*:*:*:*:*:*"
+
+
+def printAllCveObjects(cveList):
+    for i in range(len(cveList)):
+        cveList[i].showAll()
+
+    print("\n" + "Total number of CVEs: " + str(len(cveList)))

@@ -10,6 +10,7 @@ def getArgs():
     parser.add_argument('-e', '--endDate', help='End date to search for', required=True)
     parser.add_argument('-v', '--vendor', help='Vendor to search for', required=False)
     parser.add_argument('-p', '--product', help='Product to search for', required=False)
+    parser.add_argument('-w', '--output', help='Output file name', required=False)
 
     return parser.parse_args()
 
