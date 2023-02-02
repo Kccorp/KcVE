@@ -14,7 +14,6 @@ class Cve:
     source = None
     urlSource = None
 
-
     cpeList = []
 
     def __init__(self, id, publishedDate, lastModifiedDate, description):

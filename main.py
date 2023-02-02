@@ -2,6 +2,7 @@ from request import *
 from parsing import *
 from functions import *
 from args import *
+from outputBuilder import *
 
 
 def main():
@@ -12,6 +13,9 @@ def main():
 
     startDate = refactorDateFormat(args.startDate)
     endDate = refactorDateFormat(args.endDate)
+
+    if not checkDateRange(startDate, endDate):
+        exit(1)
 
     if identifyWichAPICall(args) == "all":
         # call the api and get the data
@@ -25,11 +29,14 @@ def main():
     # parse the data to a list of cve objects
     cveList = parseDataToCve(data)
 
-    # print all the cve objects
-    for i in range(len(cveList)):
-        cveList[i].showAll()
-
-    print("\n" + "Total number of CVEs: " + str(len(cveList)))
+    # create the report
+    createCveReport(cveList)
+    #
+    # # print all the cve objects
+    # for i in range(len(cveList)):
+    #     cveList[i].showAll()
+    #
+    # print("\n" + "Total number of CVEs: " + str(len(cveList)))
 
 
 if __name__ == '__main__':
