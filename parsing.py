@@ -10,12 +10,14 @@ def parseAllCpeIntoList(data, cpeList, i):
                     'criteria'].split(":")
                 cpeObject = Cpe(cpe[3], cpe[4], cpe[5])
 
-                if 'versionStartIncluding' in data['vulnerabilities'][i]['cve']['configurations'][j]['nodes'][k]['cpeMatch'][w]:
+                if 'versionStartIncluding' in \
+                        data['vulnerabilities'][i]['cve']['configurations'][j]['nodes'][k]['cpeMatch'][w]:
                     cpeObject.getMinVersion(
                         data['vulnerabilities'][i]['cve']['configurations'][j]['nodes'][k]['cpeMatch'][w][
                             'versionStartIncluding'])
 
-                if 'versionEndIncluding' in data['vulnerabilities'][i]['cve']['configurations'][j]['nodes'][k]['cpeMatch'][w]:
+                if 'versionEndIncluding' in \
+                        data['vulnerabilities'][i]['cve']['configurations'][j]['nodes'][k]['cpeMatch'][w]:
                     cpeObject.getMaxVersion(
                         data['vulnerabilities'][i]['cve']['configurations'][j]['nodes'][k]['cpeMatch'][w][
                             'versionEndIncluding'])
@@ -35,13 +37,20 @@ def parseDataToCve(data):
                   data['vulnerabilities'][i]['cve']['lastModified'],
                   data['vulnerabilities'][i]['cve']['descriptions'][0]['value'])
 
-        cve.getCvss(data['vulnerabilities'][i]['cve']['metrics']['cvssMetricV31'][0]['cvssData']['version'],
-                    data['vulnerabilities'][i]['cve']['metrics']['cvssMetricV31'][0]['cvssData']['baseScore'],
-                    data['vulnerabilities'][i]['cve']['metrics']['cvssMetricV31'][0]['cvssData']['vectorString'],
-                    data['vulnerabilities'][i]['cve']['metrics']['cvssMetricV31'][0]['exploitabilityScore'])
+        if 'cvssMetricV31' in data['vulnerabilities'][i]['cve']['metrics']:
+            cve.getCvss(data['vulnerabilities'][i]['cve']['metrics']['cvssMetricV31'][0]['cvssData']['version'],
+                        data['vulnerabilities'][i]['cve']['metrics']['cvssMetricV31'][0]['cvssData']['baseScore'],
+                        data['vulnerabilities'][i]['cve']['metrics']['cvssMetricV31'][0]['cvssData']['vectorString'],
+                        data['vulnerabilities'][i]['cve']['metrics']['cvssMetricV31'][0]['exploitabilityScore'])
+        else:
+            cve.getCvss(data['vulnerabilities'][i]['cve']['metrics']['cvssMetricV2'][0]['cvssData']['version'],
+                        data['vulnerabilities'][i]['cve']['metrics']['cvssMetricV2'][0]['cvssData']['baseScore'],
+                        data['vulnerabilities'][i]['cve']['metrics']['cvssMetricV2'][0]['cvssData']['vectorString'],
+                        data['vulnerabilities'][i]['cve']['metrics']['cvssMetricV2'][0]['exploitabilityScore'])
 
-        cve.getSource(data['vulnerabilities'][i]['cve']['references'][0]['source'],
-                      data['vulnerabilities'][i]['cve']['references'][0]['url'])
+        if len(data['vulnerabilities'][i]['cve']['references']) != 0:
+            cve.getSource(data['vulnerabilities'][i]['cve']['references'][0]['source'],
+                          data['vulnerabilities'][i]['cve']['references'][0]['url'])
 
         cpeList = parseAllCpeIntoList(data, cpeList, i)
 
