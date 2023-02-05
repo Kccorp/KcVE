@@ -5,8 +5,9 @@ WORKDIR /app
 RUN apt update && apt install -y git && \
     git clone https://github.com/Kccorp/KcVe.git
 
-VOLUME /app/results
+WORKDIR /app/KcVe
 
-RUN python KcVE/main.py
 
-ENTRYPOINT ["python", "KcVE/main.py"]
+RUN pip install -r requirements.txt
+
+ENTRYPOINT ["python", "main.py"]
