@@ -1,5 +1,7 @@
 # get all arguments from the command line
 import argparse
+import os
+
 from functions import *
 
 
@@ -56,5 +58,8 @@ def checkArgs(args):
             args.output += ".html"
 
         args.output = "results/" + args.output
+
+        if not os.path.exists("results"):
+            os.makedirs("results")
 
     return True
