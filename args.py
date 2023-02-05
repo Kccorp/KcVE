@@ -55,4 +55,6 @@ def checkArgs(args):
         if args.output[-5:] != ".html":
             args.output += ".html"
 
+        args.output = "results/" + args.output
+
     return True
