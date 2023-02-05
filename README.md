@@ -24,6 +24,11 @@ pip install -r requirements.txt
 ```
 
 ### Option 2: install from DockerHub
+If you want to use Docker, you just need to create the results folder and skip to the Usage section.
+
+```bash
+mkdir results
+```
 
 ## Usage
 
@@ -31,19 +36,24 @@ pip install -r requirements.txt
 
 ```bash
 python main.py [-h] [-k KEYWORD] -s STARTDATE -e ENDDATE [-v VENDOR] [-p PRODUCT] [-w OUTPUT]
-
 ```
 
 ### Option 2: run from DockerHub
 
 ```bash
-docker run -it --rm kccorp/kcve
+docker run --rm -v [absolute path to results folder]:/app/KcVe/results -it kccorp/kcve:latest [arguments]
 ```
 
 ### Example
 
+#### From source
 ```bash
 python main.py -s "2023-01-01" -e "2023-02-01" -v "fortinet" -p "fortios" -w "fortios.html"
+```
+
+#### From DockerHub
+```bash
+docker run --rm -v [absolute path to results folder]:/app/KcVe/results -it kccorp/kcve:latest -s "2023-01-01" -e "2023-02-01" -v "fortinet" -p "fortios" -w "fortios.html"
 ```
 
 ### Help
