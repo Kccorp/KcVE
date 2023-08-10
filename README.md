@@ -41,7 +41,7 @@ python main.py [-h] [-k KEYWORD] -s STARTDATE -e ENDDATE [-v VENDOR] [-p PRODUCT
 ### Option 2: run from DockerHub
 
 ```bash
-docker run --rm -v [absolute path to results folder]:/app/KcVe/results -it kccorp/kcve:latest [arguments]
+docker run --rm -v [absolute path to results folder]:/app/KcVe/results -it kcbod/kcve:latest [arguments]
 ```
 
 ### Example
@@ -53,7 +53,7 @@ python main.py -s "2023-01-01" -e "2023-02-01" -v "fortinet" -p "fortios" -w "fo
 
 #### From DockerHub
 ```bash
-docker run --rm -v [absolute path to results folder]:/app/KcVe/results -it kccorp/kcve:latest -s "2023-01-01" -e "2023-02-01" -v "fortinet" -p "fortios" -w "fortios.html"
+docker run --rm -v [absolute path to results folder]:/app/KcVe/results -it kcbod/kcve:latest -s "2023-01-01" -e "2023-02-01" -v "fortinet" -p "fortios" -w "fortios.html"
 ```
 
 ### Help
