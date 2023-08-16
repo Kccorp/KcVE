@@ -15,18 +15,35 @@ def getArgs():
     parser.add_argument('-v', '--vendor', help='Vendor to search for', required=False)
     parser.add_argument('-p', '--product', help='Product to search for', required=False)
     parser.add_argument('-w', '--output', help='Output file name', required=False)
-    parser.add_argument('-t', '--time', help='période de temps a regarder pour la cve', required=False)
+    parser.add_argument('-t', '--time', help='The number of days to be searched', required=False)
 
     return parser.parse_args()
 
 
 def checkArgs(args):
+    if args.time is not None and (args.startDate is not None or args.endDate is not None):
+        print("\033[91m" + "You can't use time and startDate/endDate at the same time" + "\033[0m")
+        return False
+
+    # check if startDate and endDate are both None and if time is None
     if args.time is None and args.startDate is None and args.endDate is None:
         currentTime = datetime.now()
         args.endDate = currentTime.strftime("%Y-%m-%d")
 
         args.startDate = (currentTime - timedelta(days=120)).strftime("%Y-%m-%d")
-        return True
+
+    if args.time is not None:
+        if int(args.time) > 120:
+            print("\033[91m" + "The research period is limited to 4 months " + "\033[0m")
+            return False
+        elif int(args.time) < 0:
+            print("\033[91m" + "The research period can't be negative " + "\033[0m")
+            return False
+
+    if args.time is not None:
+        currentTime = datetime.now()
+        args.endDate = currentTime.strftime("%Y-%m-%d")
+        args.startDate = (currentTime - timedelta(days=int(args.time))).strftime("%Y-%m-%d")
 
     if checkDateFormat(args.startDate) is None:
         print("\033[91m" + "Start date is not in the correct format (ex.YYYY/MM/DD)" + "\033[0m")
