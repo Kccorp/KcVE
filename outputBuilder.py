@@ -25,8 +25,7 @@ def createFile(path):
 
         <h1 class="mb-5">Cve Report</h1>
         <hr>''')
-    else:
-        print("File already exists")
+            f.close()
 
 
 def appendToFile(path, text):

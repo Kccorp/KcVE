@@ -89,4 +89,8 @@ def checkArgs(args):
         if not os.path.exists("results"):
             os.makedirs("results")
 
+        if os.path.exists(args.output):
+            print("\033[91m" + "Output file already exists" + "\033[0m")
+            return False
+
     return True

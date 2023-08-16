@@ -36,9 +36,8 @@ def main():
         # exit if no cve found
         if len(cveList) == 0:
             print("\033[91m" + "No CVE found for the given parameters" + "\033[0m")
-            exit(0)
 
-        if args.output is not None:
+        elif args.output is not None:
             # create the report
             createCveReport(cveList, args.output)
         else:
