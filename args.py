@@ -1,23 +1,33 @@
 # get all arguments from the command line
+from functions import *
+
 import argparse
 import os
-
-from functions import *
+import time
+from datetime import datetime, timedelta
 
 
 def getArgs():
     parser = argparse.ArgumentParser(description='CVE Search')
     parser.add_argument('-k', '--keyword', help='Keyword to search for', required=False)
-    parser.add_argument('-s', '--startDate', help='Start date to search for', required=True)
-    parser.add_argument('-e', '--endDate', help='End date to search for', required=True)
+    parser.add_argument('-s', '--startDate', help='Start date to search for', required=False)
+    parser.add_argument('-e', '--endDate', help='End date to search for', required=False)
     parser.add_argument('-v', '--vendor', help='Vendor to search for', required=False)
     parser.add_argument('-p', '--product', help='Product to search for', required=False)
     parser.add_argument('-w', '--output', help='Output file name', required=False)
+    parser.add_argument('-t', '--time', help='période de temps a regarder pour la cve', required=False)
 
     return parser.parse_args()
 
 
 def checkArgs(args):
+    if args.time is None and args.startDate is None and args.endDate is None:
+        currentTime = datetime.now()
+        args.endDate = currentTime.strftime("%Y-%m-%d")
+
+        args.startDate = (currentTime - timedelta(days=120)).strftime("%Y-%m-%d")
+        return True
+
     if checkDateFormat(args.startDate) is None:
         print("\033[91m" + "Start date is not in the correct format (ex.YYYY/MM/DD)" + "\033[0m")
         return False

@@ -1,5 +1,5 @@
 import re
-import datetime
+from datetime import datetime
 
 
 def checkDateFormat(dateFullString):
@@ -25,15 +25,15 @@ def checkDateRange(startDate, endDate):
     endDate = endDate.split("T")[0]
 
     # convertir les dates en datetime
-    startDate = datetime.datetime.strptime(startDate, '%Y-%m-%d').date()
-    endDate = datetime.datetime.strptime(endDate, '%Y-%m-%d').date()
+    startDate = datetime.strptime(startDate, '%Y-%m-%d').date()
+    endDate = datetime.strptime(endDate, '%Y-%m-%d').date()
 
     # calculer la différence entre les deux dates
     diff = endDate - startDate
 
     # si la différence est supérieure à 90 jours retourner false
-    if diff.days > 90:
-        print("\033[91m" + "The research period is limited to 3 months " + "\033[0m")
+    if diff.days > 120:
+        print("\033[91m" + "The research period is limited to 4 months " + "\033[0m")
         return False
 
     return True
