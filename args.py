@@ -32,13 +32,13 @@ def checkArgs(args):
 
         args.startDate = (currentTime - timedelta(days=120)).strftime("%Y-%m-%d")
 
-    if args.time is not None:
-        if int(args.time) > 120:
-            print("\033[91m" + "The research period is limited to 4 months " + "\033[0m")
-            return False
-        elif int(args.time) < 0:
-            print("\033[91m" + "The research period can't be negative " + "\033[0m")
-            return False
+    # if args.time is not None:
+        # if int(args.time) > 120:
+        #     print("\033[91m" + "The research period is limited to 4 months " + "\033[0m")
+        #     return False
+        # elif int(args.time) < 0:
+        #     print("\033[91m" + "The research period can't be negative " + "\033[0m")
+        #     return False
 
     if args.time is not None:
         currentTime = datetime.now()

@@ -1,5 +1,5 @@
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 def checkDateFormat(dateFullString):
@@ -33,11 +33,33 @@ def checkDateRange(startDate, endDate):
 
     # si la différence est supérieure à 90 jours retourner false
     if diff.days > 120:
-        print("\033[91m" + "The research period is limited to 4 months " + "\033[0m")
+        return splitDate(startDate, endDate)
+    else:
+        datesList = [startDate, endDate]
+        for i in range(1, len(datesList), 2):
+            print("start date = " + datesList[i - 1].strftime("%Y-%m-%d") + " to endDate " + datesList[i].strftime(
+                "%Y-%m-%d"))
+        return datesList
+
+
+def splitDate(startDate, endDate):
+    if startDate is None or endDate is None:
         return False
 
-    return True
+    datesList = [startDate]
+    while startDate < endDate:
+        startDate += timedelta(days=120)
+        if startDate > endDate:
+            datesList.append(endDate)
+            break
+        datesList.append(startDate)
+        startDate += timedelta(days=1)
+        datesList.append(startDate)
 
+    for i in range(1, len(datesList), 2):
+        print("start date = " + datesList[i-1].strftime("%Y-%m-%d") + " to endDate " + datesList[i].strftime("%Y-%m-%d"))
+
+    return datesList
 
 def refactorDateFormat(dateFullString):
     # replace the / . with -
